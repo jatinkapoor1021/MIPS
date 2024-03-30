@@ -1,0 +1,76 @@
+# Your code here
+
+# Data segment
+.data
+frameBuffer: .space 0x80000 # 512 wide X 256 high pixels
+w: .word 0 # Width
+h: .word 0 # Height
+d: .word 0 # Depth
+cr: .word 0 # Red component
+cg: .word 0 # Green component
+cb: .word 0 # Blue component
+
+# Other variables go BELOW here only
+
+# Constants
+YELLOW: .word 0x00FFFF00 # Yellow color
+DARK_BLUE: .word 0x000000FF # Dark blue color
+LIGHT_BLUE: .word 0x0000FFFF # Light blue color
+
+# Text segment
+.text
+
+# Main function
+main:
+    # Load input parameters
+    lw $t0, w
+    lw $t1, h
+    lw $t2, d
+    lw $t3, cr
+    lw $t4, cg
+    lw $t5, cb
+
+    # Check if figure can be drawn
+    # Implement your logic here
+
+    # Draw yellow background
+    li $t6, 0 # Row counter
+    li $t7, 0 # Column counter
+    la $t8, frameBuffer # Load address of frameBuffer
+draw_background_loop:
+    beq $t6, 256, exit_background_loop # Exit loop if row reaches 256
+    sb $t7, 0($t8) # Store yellow color in frameBuffer
+    addi $t8, $t8, 1 # Move to next pixel
+    addi $t7, $t7, 1 # Increment column counter
+    blt $t7, 512, draw_background_loop # Continue drawing until column reaches 512
+    li $t7, 0 # Reset column counter
+    addi $t6, $t6, 1 # Move to next row
+    j draw_background_loop
+
+exit_background_loop:
+
+    # Draw main face (dark blue)
+    # Calculate coordinates for main face
+    # Draw main face using calculated coordinates
+
+    # Draw top face (light blue)
+    # Calculate coordinates for top face
+    # Draw top face using calculated coordinates
+
+    # Draw side face (light blue)
+    # Calculate coordinates for side face
+    # Draw side face using calculated coordinates
+
+    # Exit program
+    li $v0, 10 # Exit syscall
+    syscall
+
+# Function to check if figure can be drawn
+check_figure:
+    # Implement your logic here
+    jr $ra
+
+# Function to draw a face
+draw_face:
+    # Implement your logic here
+    jr $ra
